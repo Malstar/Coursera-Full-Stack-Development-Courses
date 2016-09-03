@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Neil Malley">
+    <title>Colour Guessing Games</title>
+  </head>
+  <body onload="doGame()">
+    <script>
+      var targetIndex;
+      var target;
+      var guessInput;
+      var noOfGuesses = 0;
+      var finished = false;
+      var colour= ["red", "yellow", "green", "blue", "violet", "indigo",
+        "purple", "orange", "grey", "gold"];
+
+      function doGame() {
+        var randomNumber = Math.random() * 11;
+        targetIndex = Math.floor(randomNumber);
+        target = colour[targetIndex];
+        while(!finished) {
+          guessInput = prompt("I am thinking of one of these colours: \n\n" +
+            colour.sort() + "\n\nWhat is the colour?");
+          noOfGuesses += 1;
+          finished = (target == guessInput);
+        }
+      }
+      </script>
+    </body>
+</html>

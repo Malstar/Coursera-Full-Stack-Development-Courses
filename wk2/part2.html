@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Neil Malley">
+    <title>Colour Guessing Games</title>
+  </head>
+  <body onload="doGame()">
+    <script>
+      var targetIndex;
+      var target;
+      var guessInput;
+      var noOfGuesses = 0;
+      var finished = false;
+      var colours= ["red", "yellow", "green", "blue", "violet", "indigo",
+        "purple", "orange", "grey", "gold"];
+
+      function doGame() {
+        var randomNumber = Math.random() * 11;
+        targetIndex = Math.floor(randomNumber);
+        target = colours[targetIndex];
+        while(!finished) {
+          guessInput = prompt("I am thinking of one of these colours: \n\n" +
+            colours.sort() + "\n\nWhat is the colour?");
+          noOfGuesses += 1;
+          finished = checkGuess();
+        }
+      }
+
+      function checkGuess() {
+        if(colours.indexOf(guessInput) == -1) {
+          alert("Sorry I do not recognize your colour.");
+          return false;
+        }
+        if(guessInput < target) {
+          alert("Your colour is alphabetically lower than mine!");
+          return false;
+        }
+        if(guessInput > target) {
+          alert("Your colour is alphabetically higher than mine!");
+          return false;
+        }
+        myBody=document.getElementsByTagName("body")[0];
+        myBody.style.background=target;
+        alert("You are right! You took " + noOfGuesses + " guesses.");
+        return true;
+      }
+      </script>
+    </body>
+</html>
