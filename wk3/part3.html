@@ -20,6 +20,7 @@
     <script>
       var noOfFaces = 5;
       var theLeftSide = document.getElementById("leftSide");
+      var theRightSide = document.getElementById("rightSide");
       function generateFaces() {
         for(var i = 0; i < noOfFaces; i++) {
           var face = document.createElement("IMG");
@@ -30,9 +31,12 @@
           face.style.top = topPositionFace + "px";
           randomNumber = Math.random() * 401;
           var leftPositionFace = Math.floor(randomNumber);
-          face.style.left = leftPositionFace +"px";
+          face.style.left = leftPositionFace + "px";
           theLeftSide.appendChild(face);
         }
+      var leftSideImage = theLeftSide.cloneNode(true);
+      leftSideImage.removeChild(leftSideImage.lastChild);
+      theRightSide.appendChild(leftSideImage);
       }
     </script>
   </body>

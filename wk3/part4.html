@@ -12,7 +12,7 @@
       }
     </style>
   </head>
-  <body onload = "generateFaces()">
+  <body id="theBody" onload = "generateFaces()">
     <h1>Matching Game</h1>
     <p>Click on the extra smiling face on the left</p>
     <div id="leftSide"></div>
@@ -20,6 +20,7 @@
     <script>
       var noOfFaces = 5;
       var theLeftSide = document.getElementById("leftSide");
+      var theRightSide = document.getElementById("rightSide");
       function generateFaces() {
         for(var i = 0; i < noOfFaces; i++) {
           var face = document.createElement("IMG");
@@ -30,10 +31,33 @@
           face.style.top = topPositionFace + "px";
           randomNumber = Math.random() * 401;
           var leftPositionFace = Math.floor(randomNumber);
-          face.style.left = leftPositionFace +"px";
+          face.style.left = leftPositionFace + "px";
           theLeftSide.appendChild(face);
-        }
-      }
+        };
+        var leftSideImage = theLeftSide.cloneNode(true);
+        leftSideImage.removeChild(leftSideImage.lastChild);
+        theRightSide.appendChild(leftSideImage);
+        var theBody = document.getElementById("theBody");
+        theLeftSide.lastChild.onclick =
+          function nextLevel(event){
+            event.stopPropagation();
+            deleteAllChildren();
+            noOfFaces += 5;
+            generateFaces();
+          };
+        theBody.onclick =
+          function gameOver() {
+            alert("Game Over!");
+            theBody.onclick = null;
+            theLeftSide.lastChild.onclick = null;
+          };
+        function deleteAllChildren() {
+          while(theLeftSide.firstChild)
+            theLeftSide.removeChild(theLeftSide.firstChild);
+          while(theRightSide.firstChild)
+            theRightSide.removeChild(theRightSide.firstChild);
+        };
+      };
     </script>
   </body>
 </html>
